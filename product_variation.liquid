@@ -1,0 +1,42 @@
+  {% for variant in product.variants %}
+  
+    <div
+      {% if product.selected_or_first_available_variant.id == variant.id %}
+        style="display:block"
+        {% else %}
+        style="display:none"
+      {% endif %}
+      class="productDescription_cst"
+      id="{{  variant.id }}"
+    >
+      {{ variant.metafields.custom.variant_description }}
+    </div>
+  {% endfor %}
+</div>
+<!-- {% if product.selected_or_first_available_variant.id == variant.id %} -->
+<!-- {% endif %} -->
+
+
+<script>
+  const myRadios = document.getElementsByClassName("product-form__radio");
+
+  for (let i = 0; i < myRadios.length; i++) {
+    myRadios[i].onclick = function() {
+      const dataId = this.getAttribute("data-variant-id");
+      console.log(dataId);
+      showSection(dataId);
+    }
+  }
+
+    function showSection(sectionId) {
+    const sections = document.getElementsByClassName("productDescription_cst");
+
+    for (let i = 0; i < sections.length; i++) {
+      if (sections[i].id === sectionId) {
+        sections[i].style.display = "block";
+      } else {
+        sections[i].style.display = "none";
+      }
+    }
+  }
+</script>
